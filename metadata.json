@@ -1,0 +1,6 @@
+{
+  "name": "The Tiffin Service (PDSB Enterprise)",
+  "description": "Premium home-style meal service and catering in South Extension I, New Delhi. Daily, weekly, and monthly tiffin plans.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
