@@ -13,10 +13,10 @@ export default function MobileActionBar({ onOpenEnquiry }: MobileActionBarProps)
         {/* Call Now */}
         <a
           href={`tel:${BUSINESS_INFO.phone.replace(/\s+/g, '')}`}
-          className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-white border border-[#DCD3C3] text-[#0F251B] active:bg-[#F2ECE1] transition-colors"
+          className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-white border border-[#E0DCD4] text-[#161616] active:bg-[#FAF8F5] transition-colors"
         >
-          <Phone className="w-4 h-4 text-[#E26D2D] mb-0.5" />
-          <span className="text-[10px] font-bold uppercase tracking-wider">Call</span>
+          <Phone className="w-4 h-4 text-[#BE2325] mb-0.5" />
+          <span className="text-[10px] font-bold uppercase tracking-wider font-display">Call</span>
         </a>
 
         {/* WhatsApp Kitchen */}
@@ -27,7 +27,7 @@ export default function MobileActionBar({ onOpenEnquiry }: MobileActionBarProps)
           className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-[#25D366] text-white active:bg-[#1EBE5D] transition-colors shadow-xs"
         >
           <MessageSquare className="w-4 h-4 text-white mb-0.5" />
-          <span className="text-[10px] font-extrabold uppercase tracking-wider">WhatsApp</span>
+          <span className="text-[10px] font-bold uppercase tracking-wider font-display">WhatsApp</span>
         </a>
 
         {/* Enquire Plan */}
@@ -39,10 +39,10 @@ export default function MobileActionBar({ onOpenEnquiry }: MobileActionBarProps)
               onOpenEnquiry();
             }
           }}
-          className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-[#E26D2D] text-white active:bg-[#CF5F21] transition-colors shadow-xs"
+          className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-[#BE2325] text-white active:bg-[#9F191B] transition-colors shadow-xs"
         >
           <Calendar className="w-4 h-4 text-white mb-0.5" />
-          <span className="text-[10px] font-extrabold uppercase tracking-wider">Enquire</span>
+          <span className="text-[10px] font-bold uppercase tracking-wider font-display">Enquire</span>
         </a>
 
       </div>

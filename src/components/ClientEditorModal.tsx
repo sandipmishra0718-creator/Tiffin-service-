@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { X, Check, Info, Sparkles, Sliders, ExternalLink, ShieldCheck, RefreshCw } from 'lucide-react';
+import { X, Info, ShieldCheck } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/businessData';
 
 interface ClientEditorModalProps {
@@ -31,36 +30,36 @@ export default function ClientEditorModal({
       onClick={onClose}
     >
       <div 
-        className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-[#E0D7CA] text-[#0F251B] max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-[#E8E2D7] text-[#161616] max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 pb-4 border-b border-[#EAE3D7]">
+        <div className="flex items-start justify-between gap-4 pb-4 border-b border-[#E8E2D7]">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#E26D2D] bg-[#FAF7F2] px-2.5 py-1 rounded-full border border-[#EADFCF] mb-1.5">
-              <ShieldCheck className="w-3 h-3 text-[#163B2B]" />
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#BE2325] bg-[#FAF8F5] px-2.5 py-1 rounded-full border border-[#E8E2D7] mb-1.5 font-display">
+              <ShieldCheck className="w-3 h-3 text-[#BE2325]" />
               <span>Client Verification Mode</span>
             </div>
-            <h3 className="font-serif-display text-xl sm:text-2xl font-bold">
-              Editable Placeholders & Verified Facts
+            <h3 className="font-display text-xl sm:text-2xl font-bold uppercase tracking-tight text-[#161616]">
+              Editable Placeholders &amp; Verified Facts
             </h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-[#F2ECE1] transition-colors"
+            className="p-1.5 rounded-full hover:bg-[#FAF8F5] transition-colors"
             aria-label="Close modal"
           >
-            <X className="w-5 h-5 text-[#5C655B]" />
+            <X className="w-5 h-5 text-[#5C554B]" />
           </button>
         </div>
 
         {/* Verified Facts summary */}
-        <div className="my-5 p-4 rounded-2xl bg-[#FAF7F2] border border-[#E7E0D3] text-xs space-y-2">
-          <p className="font-bold text-[#163B2B] uppercase tracking-wider text-[11px] mb-1">
+        <div className="my-5 p-4 rounded-2xl bg-[#FAF8F5] border border-[#E8E2D7] text-xs space-y-2">
+          <p className="font-display font-bold text-[#BE2325] uppercase tracking-wider text-xs mb-1">
             Confirmed Verified Data (Active):
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[#4D554C]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[#524B40]">
             <div><strong>Business:</strong> {BUSINESS_INFO.name}</div>
             <div><strong>Enterprise:</strong> {BUSINESS_INFO.enterprise}</div>
             <div><strong>Location:</strong> South Extension I, New Delhi</div>
@@ -73,17 +72,17 @@ export default function ClientEditorModal({
         {/* Pricing Field Customizer Preview */}
         <div className="space-y-4 my-6">
           <div className="flex items-center justify-between">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0F251B]">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#161616] font-display">
               Quick Price Preview (Optional Test)
             </h4>
-            <span className="text-[11px] text-[#7A857A]">
+            <span className="text-[11px] text-[#7A7165]">
               Test real pricing values live:
             </span>
           </div>
 
           <div className="space-y-3">
             <div>
-              <label className="block text-[11px] font-bold text-[#555E54] mb-1">
+              <label className="block text-[11px] font-bold text-[#524B40] mb-1">
                 Daily Plan Price Tag:
               </label>
               <input
@@ -91,12 +90,12 @@ export default function ClientEditorModal({
                 value={customDailyPrice}
                 onChange={(e) => setCustomDailyPrice && setCustomDailyPrice(e.target.value)}
                 placeholder="e.g. ₹180 or ₹[PRICE]"
-                className="w-full px-3 py-2 rounded-lg bg-[#FAF7F2] border border-[#DDD4C4] text-xs font-semibold"
+                className="w-full px-3 py-2 rounded-xl bg-[#FAF8F5] border border-[#DDD3C2] text-xs font-semibold"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-[#555E54] mb-1">
+              <label className="block text-[11px] font-bold text-[#524B40] mb-1">
                 Weekly Plan Price Tag:
               </label>
               <input
@@ -104,12 +103,12 @@ export default function ClientEditorModal({
                 value={customWeeklyPrice}
                 onChange={(e) => setCustomWeeklyPrice && setCustomWeeklyPrice(e.target.value)}
                 placeholder="e.g. ₹1,050 or ₹[PRICE]"
-                className="w-full px-3 py-2 rounded-lg bg-[#FAF7F2] border border-[#DDD4C4] text-xs font-semibold"
+                className="w-full px-3 py-2 rounded-xl bg-[#FAF8F5] border border-[#DDD3C2] text-xs font-semibold"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-[#555E54] mb-1">
+              <label className="block text-[11px] font-bold text-[#524B40] mb-1">
                 Monthly Plan Price Tag:
               </label>
               <input
@@ -117,15 +116,15 @@ export default function ClientEditorModal({
                 value={customMonthlyPrice}
                 onChange={(e) => setCustomMonthlyPrice && setCustomMonthlyPrice(e.target.value)}
                 placeholder="e.g. ₹4,200 or ₹[PRICE]"
-                className="w-full px-3 py-2 rounded-lg bg-[#FAF7F2] border border-[#DDD4C4] text-xs font-semibold"
+                className="w-full px-3 py-2 rounded-xl bg-[#FAF8F5] border border-[#DDD3C2] text-xs font-semibold"
               />
             </div>
           </div>
         </div>
 
         {/* Instructions for Client */}
-        <div className="p-4 rounded-2xl bg-[#FFF8F3] border border-[#FADCC7] text-xs text-[#6F4E37] space-y-1.5 mb-6">
-          <p className="font-bold flex items-center gap-1.5 text-[#CF5F21]">
+        <div className="p-4 rounded-2xl bg-[#FFF5F5] border border-[#FED7D7] text-xs text-[#7B1D1D] space-y-1.5 mb-6">
+          <p className="font-bold flex items-center gap-1.5 text-[#BE2325]">
             <Info className="w-3.5 h-3.5" />
             <span>Factual Accuracy Compliance</span>
           </p>
@@ -136,13 +135,13 @@ export default function ClientEditorModal({
         </div>
 
         {/* Modal Actions */}
-        <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#EAE3D7]">
+        <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#E8E2D7]">
           <button
             type="button"
             onClick={onClose}
-            className="px-6 py-2.5 rounded-xl bg-[#163B2B] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#0D2218] transition-colors"
+            className="px-6 py-2.5 rounded-full bg-[#BE2325] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#9F191B] transition-colors"
           >
-            Done & Apply
+            Done &amp; Apply
           </button>
         </div>
       </div>

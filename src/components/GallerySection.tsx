@@ -1,168 +1,165 @@
-import { useState } from 'react';
-import { Camera, X, Maximize2, Sparkles, ChevronRight } from 'lucide-react';
-import { GALLERY_ITEMS } from '../data/businessData';
-import { GalleryItem } from '../types';
+import { useState, MouseEvent } from 'react';
+import { Camera, Sparkles, Filter, MessageSquare, Maximize2 } from 'lucide-react';
+import { REAL_BUSINESS_IMAGES, RealBusinessImage } from '../data/realImages';
+import { BUSINESS_INFO } from '../data/businessData';
+import RealImage from './RealImage';
 
-export default function GallerySection() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [activeLightboxItem, setActiveLightboxItem] = useState<GalleryItem | null>(null);
+interface GallerySectionProps {
+  onZoomImage?: (image: RealBusinessImage) => void;
+}
+
+export default function GallerySection({ onZoomImage }: GallerySectionProps) {
+  const [activeCategory, setActiveCategory] = useState<string>('all');
 
   const categories = [
-    { id: 'all', label: 'All Photos' },
-    { id: 'food', label: 'Food' },
-    { id: 'tiffin', label: 'Tiffin' },
-    { id: 'kitchen', label: 'Kitchen / Preparation' },
-    { id: 'packaging', label: 'Packaging' },
-    { id: 'service', label: 'Service' },
+    { id: 'all', label: 'All Photos', count: REAL_BUSINESS_IMAGES.length },
+    { id: 'food', label: 'Meals & Dishes', count: REAL_BUSINESS_IMAGES.filter(i => i.category === 'food').length },
+    { id: 'packaging', label: 'Tiffins & Packaging', count: REAL_BUSINESS_IMAGES.filter(i => i.category === 'packaging').length },
+    { id: 'brand', label: 'Kitchen & Setup', count: REAL_BUSINESS_IMAGES.filter(i => i.category === 'brand').length },
+    { id: 'delivery', label: 'Delivery & Dispatch', count: REAL_BUSINESS_IMAGES.filter(i => i.category === 'delivery').length },
   ];
 
-  const filteredItems = selectedCategory === 'all'
-    ? GALLERY_ITEMS
-    : GALLERY_ITEMS.filter(item => item.category === selectedCategory);
+  const filteredImages = activeCategory === 'all'
+    ? REAL_BUSINESS_IMAGES
+    : REAL_BUSINESS_IMAGES.filter(item => item.category === activeCategory);
+
+  const handleEnquireImage = (image: RealBusinessImage, e: MouseEvent) => {
+    e.stopPropagation();
+    const text = `Hello The Tiffin Service (PDSB Enterprise), I am enquiring about "${image.title}" (${image.categoryLabel}) shown in your gallery.`;
+    window.open(`https://wa.me/919560339117?text=${encodeURIComponent(text)}`, '_blank');
+  };
 
   return (
-    <section id="gallery" className="py-16 md:py-24 bg-white border-y border-[#E8E2D8]">
+    <section id="gallery" className="py-16 md:py-24 bg-[#FAF8F5] border-y border-[#E8E2D7]">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F2ECE1] border border-[#E0D7CA] text-[#163B2B] text-xs font-bold uppercase tracking-widest mb-3">
-            <Camera className="w-3.5 h-3.5 text-[#E26D2D]" />
-            <span>VISUAL SHOWCASE</span>
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <span className="text-[#BE2325] text-lg font-bold">→</span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#161616]">
+              VISUAL GALLERY
+            </h2>
+            <span className="text-[#BE2325] text-lg font-bold">←</span>
           </div>
 
-          <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F251B] mb-4 tracking-tight">
-            Our Kitchen & Service Gallery
-          </h2>
-
-          <p className="text-xs sm:text-sm text-[#545E53] max-w-2xl mx-auto leading-relaxed">
-            A glimpse into our food preparation, authentic multi-tier tiffin packaging, and daily service operations in South Extension I.
+          <p className="font-display uppercase text-xs sm:text-sm font-semibold tracking-wider text-[#BE2325] mb-2">
+            Real Photos From Our South Delhi Kitchen &amp; Tiffins
           </p>
 
-          <p className="text-[11px] text-[#7D887C] mt-2 italic">
-            * Curated representative gallery. Real service and kitchen photographs can be directly uploaded by the client.
+          <p className="text-xs sm:text-sm text-[#5E584E] max-w-xl mx-auto leading-relaxed">
+            Everyday authentic meals, stainless steel tiffins, spotlessly clean kitchen, and punctual dispatch across South Extension I.
           </p>
+
+          <div className="mt-4 inline-flex items-center gap-2 text-[11px] text-[#6B6357] bg-white border border-[#E0DCD4] px-4 py-1.5 rounded-full shadow-2xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#BE2325]" />
+            <span>22 Verified Business Photos • Click any image to view in high resolution</span>
+          </div>
         </div>
 
-        {/* Filter Tabs */}
+        {/* Categories Filter */}
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-10">
           {categories.map((cat) => {
-            const isActive = selectedCategory === cat.id;
+            const isActive = activeCategory === cat.id;
             return (
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`px-4 sm:px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-200 ${
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-4 sm:px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 flex items-center gap-1.5 ${
                   isActive
-                    ? 'bg-[#163B2B] text-white shadow-xs'
-                    : 'bg-[#FAF7F2] text-[#4F594E] border border-[#E7E0D3] hover:border-[#D0C5B3] hover:text-[#0F251B]'
+                    ? 'bg-[#BE2325] text-white shadow-xs'
+                    : 'bg-white text-[#3D3A35] border border-[#E0DCD4] hover:border-[#BE2325]/50 hover:text-[#BE2325]'
                 }`}
               >
-                {cat.label}
+                <span>{cat.label}</span>
+                <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                  isActive ? 'bg-white/20 text-white' : 'bg-[#F0EBE1] text-[#7A7165]'
+                }`}>
+                  {cat.count}
+                </span>
               </button>
             );
           })}
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredItems.map((item) => (
+        {/* Real Photos Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredImages.map((image) => (
             <div
-              key={item.id}
-              onClick={() => setActiveLightboxItem(item)}
-              className="group relative rounded-2xl overflow-hidden bg-[#EFEAE2] border border-[#E7E0D3] shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer aspect-4/3"
+              key={image.id}
+              onClick={() => onZoomImage?.(image)}
+              className="group cursor-pointer rounded-3xl bg-white border border-[#E8E2D7] shadow-xs hover:shadow-xl hover:border-[#D5CABB] transition-all duration-300 overflow-hidden flex flex-col justify-between"
             >
-              <img
-                src={item.imageUrl}
-                alt={item.title}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+              {/* Image Area */}
+              <div className="relative aspect-4/3 w-full overflow-hidden">
+                <RealImage
+                  image={image}
+                  aspectRatio="4/3"
+                  className="w-full h-full rounded-none border-none"
+                  showBadge={true}
+                  allowZoom={true}
+                  onZoom={onZoomImage}
+                />
 
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-
-              {/* Top Category Badge */}
-              <div className="absolute top-3.5 left-3.5">
-                <span className="px-2.5 py-1 rounded-md bg-white/90 backdrop-blur-xs text-[#0F251B] text-[10px] font-bold uppercase tracking-wider shadow-xs">
-                  {item.categoryLabel}
-                </span>
+                {/* Quick WhatsApp pill on hover */}
+                <button
+                  type="button"
+                  onClick={(e) => handleEnquireImage(image, e)}
+                  className="absolute bottom-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity z-20 px-2.5 py-1 rounded-full bg-[#161616]/90 hover:bg-[#BE2325] text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-md"
+                  title="Enquire on WhatsApp"
+                >
+                  <MessageSquare className="w-3 h-3 text-[#25D366]" />
+                  <span>Enquire</span>
+                </button>
               </div>
 
-              {/* Expand Icon */}
-              <div className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/40 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <Maximize2 className="w-3.5 h-3.5" />
+              {/* Card Details */}
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between text-[10px] font-mono text-[#8C8377] mb-1">
+                    <span className="uppercase font-bold text-[#BE2325]">{image.categoryLabel}</span>
+                    <span className="truncate max-w-[110px]">{image.sectionAssignment}</span>
+                  </div>
+
+                  <h3 className="font-display text-sm font-bold uppercase tracking-tight text-[#161616] mb-1 line-clamp-1">
+                    {image.title}
+                  </h3>
+
+                  <p className="text-xs text-[#5E584E] leading-relaxed line-clamp-2">
+                    {image.description}
+                  </p>
+                </div>
+
+                <div className="mt-3 pt-2.5 border-t border-[#F0EBE1] flex items-center justify-between text-[11px]">
+                  <span className="text-[#8A8175] flex items-center gap-1">
+                    <Maximize2 className="w-3 h-3 text-[#BE2325]" />
+                    <span>Click to expand</span>
+                  </span>
+                  <span className="font-bold text-[#BE2325] hover:underline">
+                    View &amp; Enquire →
+                  </span>
+                </div>
               </div>
 
-              {/* Bottom Details */}
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <h3 className="font-serif-display text-base font-bold leading-snug group-hover:text-[#FFA066] transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-[11px] text-white/80 line-clamp-2 mt-0.5">
-                  {item.caption}
-                </p>
-              </div>
             </div>
           ))}
         </div>
 
-      </div>
-
-      {/* Lightbox Modal */}
-      {activeLightboxItem && (
-        <div 
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
-          onClick={() => setActiveLightboxItem(null)}
-        >
-          <div 
-            className="relative max-w-4xl w-full bg-[#0F251B] rounded-3xl overflow-hidden border border-[#234D3A] shadow-2xl text-white"
-            onClick={(e) => e.stopPropagation()}
+        {/* Bottom Gallery Action */}
+        <div className="mt-12 text-center">
+          <a
+            href={BUSINESS_INFO.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#161616] hover:bg-[#BE2325] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-colors shadow-sm"
           >
-            {/* Close button */}
-            <button
-              type="button"
-              onClick={() => setActiveLightboxItem(null)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#E26D2D] transition-colors"
-              aria-label="Close photo preview"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="aspect-16/10 sm:aspect-16/9 bg-black overflow-hidden flex items-center justify-center">
-              <img
-                src={activeLightboxItem.imageUrl}
-                alt={activeLightboxItem.title}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-contain"
-              />
-            </div>
-
-            <div className="p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-[#143526]">
-              <div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#FFA066] block mb-1">
-                  {activeLightboxItem.categoryLabel}
-                </span>
-                <h3 className="font-serif-display text-xl font-bold">
-                  {activeLightboxItem.title}
-                </h3>
-                <p className="text-xs text-white/70 mt-1 max-w-xl">
-                  {activeLightboxItem.caption}
-                </p>
-              </div>
-
-              <a
-                href="#contact"
-                onClick={() => setActiveLightboxItem(null)}
-                className="px-5 py-2.5 rounded-xl bg-[#E26D2D] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#CF5F21] transition-colors shrink-0"
-              >
-                Enquire Service
-              </a>
-            </div>
-          </div>
+            <MessageSquare className="w-4 h-4 text-[#25D366]" />
+            <span>ENQUIRE ABOUT CUSTOM CATERING ON WHATSAPP</span>
+          </a>
         </div>
-      )}
+
+      </div>
     </section>
   );
 }

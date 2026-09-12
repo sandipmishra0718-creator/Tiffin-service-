@@ -211,7 +211,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: "Complete Traditional Thali Platter",
     category: "food",
     categoryLabel: "Food",
-    imageUrl: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "",
     caption: "Authentic multi-course Indian home meal with dal, seasonal sabzi, fragrant rice and warm rotis.",
   },
   {
@@ -219,7 +219,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: "Fresh Tawa Phulkas & Ghee",
     category: "food",
     categoryLabel: "Food",
-    imageUrl: "https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "",
     caption: "Whole wheat rotis rolled fresh for every meal cycle to maintain softness and natural nutrition.",
   },
   {
@@ -227,7 +227,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: "Multi-Tier Stainless Steel Tiffin",
     category: "tiffin",
     categoryLabel: "Tiffin",
-    imageUrl: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "",
     caption: "Classic Indian tiffin carrier system ensuring piping hot delivery of curries, bread and sides.",
   },
   {
@@ -235,7 +235,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: "Clean Kitchen & Spice Blending",
     category: "kitchen",
     categoryLabel: "Kitchen / Preparation",
-    imageUrl: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "",
     caption: "Freshly roasted and ground spices ensuring authentic aroma and authentic homestyle flavor profiles.",
   },
   {
@@ -243,7 +243,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: "Hygienic Daily Meal Packaging",
     category: "packaging",
     categoryLabel: "Packaging",
-    imageUrl: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "",
     caption: "Spill-proof, food-grade meal containers crafted for convenient office and home dining.",
   },
   {
@@ -251,7 +251,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: "Prompt South Delhi Delivery Service",
     category: "service",
     categoryLabel: "Service",
-    imageUrl: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "",
     caption: "Reliable meal dispatches reaching working professionals and families in South Extension on time.",
   },
 ];

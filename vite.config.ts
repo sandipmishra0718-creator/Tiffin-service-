@@ -10,20 +10,15 @@ function aistudioMediaPlugin(): Plugin {
     name: 'vite-plugin-aistudio-media',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (req.url && req.url.startsWith('/assets/aistudio/')) {
+        if (req.url && (req.url.startsWith('/assets/aistudio/') || req.url.startsWith('/images/'))) {
           const rawPath = req.url.split('?')[0].split('#')[0];
           try {
             const decodedPath = decodeURIComponent(rawPath);
             const relativePath = decodedPath.replace(/^\//, '');
-            const aistudioDir = path.resolve(
-              __dirname,
-              'public',
-              'assets',
-              'aistudio',
-            );
             const filePath = path.resolve(__dirname, 'public', relativePath);
+            const publicDir = path.resolve(__dirname, 'public');
             if (
-              filePath.startsWith(aistudioDir + path.sep) &&
+              filePath.startsWith(publicDir + path.sep) &&
               fs.existsSync(filePath) &&
               fs.statSync(filePath).isFile()
             ) {

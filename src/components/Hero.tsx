@@ -1,152 +1,180 @@
-import type { SVGProps } from 'react';
-import { ArrowRight, Sparkles, ChefHat, Heart, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Utensils, CalendarRange, Truck, HeartPulse } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/businessData';
+import { REAL_IMAGES_BY_ID, RealBusinessImage } from '../data/realImages';
+import RealImage from './RealImage';
 
 interface HeroProps {
   onOpenEnquiryModal?: () => void;
+  onZoomImage?: (image: RealBusinessImage) => void;
 }
 
-export default function Hero({ onOpenEnquiryModal }: HeroProps) {
-  return (
-    <section id="home" className="relative pt-6 pb-16 md:pt-10 md:pb-24 overflow-hidden">
-      {/* Subtle organic background decoration */}
-      <div className="absolute top-10 right-0 w-96 h-96 bg-[#E26D2D]/5 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute -bottom-10 left-10 w-96 h-96 bg-[#163B2B]/5 rounded-full blur-3xl pointer-events-none -z-10" />
+export default function Hero({ onOpenEnquiryModal, onZoomImage }: HeroProps) {
+  const heroImage = REAL_IMAGES_BY_ID['thali-royal-hero'];
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+  const handleCtaClick = () => {
+    if (onOpenEnquiryModal) {
+      onOpenEnquiryModal();
+    } else {
+      const contactEl = document.getElementById('contact');
+      if (contactEl) {
+        contactEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  return (
+    <section id="home" className="relative pt-6 pb-16 md:pt-12 md:pb-24 overflow-hidden bg-[#FAF8F5]">
+      {/* Decorative subtle dot matrix */}
+      <div 
+        className="absolute top-6 left-6 w-32 h-32 opacity-25 pointer-events-none hidden md:block"
+        style={{
+          backgroundImage: 'radial-gradient(#161616 1.5px, transparent 1.5px)',
+          backgroundSize: '12px 12px',
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
-          {/* Left Column: Headlines & CTAs */}
+          {/* LEFT COLUMN: Eyebrow, Giant Bold Headline, Paragraph, CTAs, Feature Row */}
           <div className="lg:col-span-6 flex flex-col justify-center text-left">
-            {/* Tagline Pill */}
-            <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-[#F2ECE1] border border-[#E2DBD0] text-[#163B2B] text-xs font-bold tracking-widest uppercase mb-5">
-              <Sparkles className="w-3.5 h-3.5 text-[#E26D2D]" />
-              <span>GOOD FOOD • EVERYDAY ROUTINE</span>
+            
+            {/* Eyebrow text */}
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-2 h-2 rounded-full bg-[#BE2325]" />
+              <p className="text-xs sm:text-sm font-bold tracking-[0.2em] text-[#BE2325] uppercase font-display">
+                HEALTHY MEALS • CUSTOMIZED PLANS • FRESH DELIVERY
+              </p>
             </div>
 
-            {/* Main Headline with Script Accent */}
-            <h1 className="font-serif-display text-4xl sm:text-5xl xl:text-6xl text-[#0F251B] font-extrabold tracking-tight leading-[1.15] mb-5">
-              HOME-STYLE FOOD,<br />
-              MADE FOR YOUR{' '}
-              <span className="font-script-accent text-[#E26D2D] font-normal text-5xl sm:text-6xl xl:text-7xl lowercase italic relative inline-block pl-1">
-                Everyday.
-              </span>
+            {/* Giant Bold Headline */}
+            <h1 className="font-display font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-[#161616] uppercase tracking-tight leading-[0.95] mb-5">
+              HOME-STYLE FOOD, <br />
+              <span className="text-[#BE2325]">BETTER TIMES!</span>
             </h1>
 
-            {/* Supporting Copy */}
-            <p className="text-[#4F574E] text-base sm:text-lg leading-relaxed max-w-xl mb-8 font-normal">
-              Fresh, comforting meals made for busy days, working professionals
-              and anyone who wants delicious food without the everyday hassle.
+            {/* Supporting paragraph */}
+            <p className="text-[#4A4742] text-base sm:text-lg leading-relaxed max-w-xl mb-8 font-normal">
+              Wholesome seasonal sabzis, slow-simmered comfort dals, and soft warm phulkas — made fresh daily with care in South Extension I, New Delhi for busy professionals and families.
             </p>
 
-            {/* CTA Buttons */}
+            {/* Two CTA Buttons */}
             <div className="flex flex-wrap items-center gap-3.5 sm:gap-4 mb-10">
               <a
                 href="#plans"
-                className="px-6 sm:px-7 py-3.5 rounded-lg bg-[#E26D2D] hover:bg-[#CF5F21] text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all shadow-md hover:shadow-lg flex items-center gap-2 transform active:scale-98"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleCtaClick();
+                }}
+                className="px-7 sm:px-8 py-3.5 rounded-full bg-[#BE2325] hover:bg-[#9F191B] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center gap-2 transform active:scale-95"
               >
-                <span>VIEW OUR PLANS</span>
+                <span>ORDER NOW</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
 
               <a
-                href="#contact"
-                onClick={(e) => {
-                  if (onOpenEnquiryModal) {
-                    e.preventDefault();
-                    onOpenEnquiryModal();
-                  }
-                }}
-                className="px-6 sm:px-7 py-3.5 rounded-lg bg-transparent border-2 border-[#163B2B] text-[#163B2B] hover:bg-[#163B2B] hover:text-[#FAF7F2] text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2"
+                href="#menu"
+                className="px-7 sm:px-8 py-3.5 rounded-full bg-transparent border-2 border-[#161616] text-[#161616] hover:bg-[#161616] hover:text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center gap-2"
               >
-                <span>ORDER / ENQUIRE NOW</span>
+                <span>VIEW MENU</span>
               </a>
             </div>
 
-            {/* Trust Badges Row (Mirrors the reference's 3 mini badges) */}
-            <div className="pt-6 border-t border-[#E8E2D8] grid grid-cols-3 gap-3 sm:gap-4 max-w-lg">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-[#F2ECE1] flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-4 h-4 text-[#163B2B]" />
+            {/* Feature row */}
+            <div className="pt-6 border-t border-[#E8E2D7] grid grid-cols-3 sm:grid-cols-4 gap-4 max-w-xl">
+              <div className="flex flex-col items-start gap-1.5">
+                <div className="w-8 h-8 rounded-lg bg-[#F2ECE2] flex items-center justify-center text-[#BE2325]">
+                  <Utensils className="w-4 h-4 text-[#BE2325]" />
                 </div>
-                <div>
-                  <p className="text-[11px] font-bold text-[#0F251B] uppercase tracking-wider">Freshly</p>
-                  <p className="text-[10px] text-[#636C62]">Prepared Daily</p>
-                </div>
+                <span className="font-display text-xs font-bold uppercase tracking-wider text-[#161616] leading-tight">
+                  FRESHLY<br />PREPARED
+                </span>
               </div>
 
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-[#F2ECE1] flex items-center justify-center shrink-0">
-                  <ChefHat className="w-4 h-4 text-[#163B2B]" />
+              <div className="flex flex-col items-start gap-1.5">
+                <div className="w-8 h-8 rounded-lg bg-[#F2ECE2] flex items-center justify-center text-[#BE2325]">
+                  <CalendarRange className="w-4 h-4 text-[#BE2325]" />
                 </div>
-                <div>
-                  <p className="text-[11px] font-bold text-[#0F251B] uppercase tracking-wider">Homestyle</p>
-                  <p className="text-[10px] text-[#636C62]">Comfort Meals</p>
-                </div>
+                <span className="font-display text-xs font-bold uppercase tracking-wider text-[#161616] leading-tight">
+                  CUSTOMIZED<br />PLANS
+                </span>
               </div>
 
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-[#F2ECE1] flex items-center justify-center shrink-0">
-                  <Heart className="w-4 h-4 text-[#E26D2D]" />
+              <div className="flex flex-col items-start gap-1.5">
+                <div className="w-8 h-8 rounded-lg bg-[#F2ECE2] flex items-center justify-center text-[#BE2325]">
+                  <HeartPulse className="w-4 h-4 text-[#BE2325]" />
                 </div>
-                <div>
-                  <p className="text-[11px] font-bold text-[#0F251B] uppercase tracking-wider">South Delhi</p>
-                  <p className="text-[10px] text-[#636C62]">Local Kitchen</p>
+                <span className="font-display text-xs font-bold uppercase tracking-wider text-[#161616] leading-tight">
+                  HEALTHY<br />MEALS
+                </span>
+              </div>
+
+              <div className="hidden sm:flex flex-col items-start gap-1.5">
+                <div className="w-8 h-8 rounded-lg bg-[#F2ECE2] flex items-center justify-center text-[#BE2325]">
+                  <Truck className="w-4 h-4 text-[#BE2325]" />
                 </div>
+                <span className="font-display text-xs font-bold uppercase tracking-wider text-[#161616] leading-tight">
+                  DOORSTEP<br />DELIVERY
+                </span>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Hero Visual with Realistic Indian Food & Floating Badges */}
+          {/* RIGHT COLUMN: Real Hero Image Showcase with Red Splash & Stamp */}
           <div className="lg:col-span-6 relative flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[460px] sm:max-w-[500px]">
+            <div className="relative w-full max-w-[500px]">
               
-              {/* Circular Plate Presentation (Inspired by reference plate composition) */}
-              <div className="relative rounded-full aspect-square p-3 sm:p-4 bg-gradient-to-tr from-[#E8DFCF] via-[#FAF7F2] to-white shadow-2xl border border-[#DFD6C7] overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=1200&q=85"
-                  alt="Authentic Indian Home-Style Meal Thali with dal, curry, fresh phulkas and basmati rice"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover rounded-full transform hover:scale-105 transition-transform duration-700"
-                />
+              {/* Dynamic red splash / paint stroke background */}
+              <div 
+                className="absolute -top-6 -right-6 w-72 h-72 sm:w-96 sm:h-96 bg-[#BE2325]/15 rounded-full blur-2xl pointer-events-none -z-0"
+              />
 
-                {/* Subtle sheen highlight */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 via-transparent to-white/10 pointer-events-none" />
-              </div>
+              {/* Large Image Card */}
+              <div className="relative z-10 rounded-3xl p-3 sm:p-4 bg-white border border-[#E8E2D7] shadow-xl">
+                
+                <div className="relative aspect-4/3 sm:aspect-square w-full rounded-2xl overflow-hidden group">
+                  {heroImage && (
+                    <RealImage
+                      image={heroImage}
+                      aspectRatio="square"
+                      className="w-full h-full rounded-2xl"
+                      showBadge={false}
+                      allowZoom={true}
+                      onZoom={onZoomImage}
+                    />
+                  )}
 
-              {/* Floating Circular Badge (Inspired by "30+ Signature Dishes" in reference) */}
-              <div className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white/95 backdrop-blur-md shadow-xl border border-[#E7DECF] flex flex-col items-center justify-center text-center p-2 transform hover:rotate-6 transition-transform">
-                <span className="font-serif-display text-lg sm:text-xl font-extrabold text-[#0F251B] leading-none">
-                  ₹800
-                </span>
-                <span className="text-[10px] font-bold text-[#E26D2D] uppercase tracking-wider mt-0.5">
-                  For Two
-                </span>
-                <span className="text-[8px] text-[#7A837A] mt-0.5">
-                  Listing Indicator
-                </span>
-              </div>
+                  {/* Stamp Badge on Top-Right */}
+                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 pointer-events-none">
+                    <div className="w-20 h-20 sm:w-22 sm:h-22 rounded-full border-2 border-dashed border-[#BE2325] bg-white/95 p-1 flex flex-col items-center justify-center text-center shadow-md rotate-[-8deg]">
+                      <span className="font-display font-bold text-xs sm:text-sm text-[#BE2325] uppercase leading-none">
+                        100%
+                      </span>
+                      <span className="font-display text-[9px] sm:text-[10px] font-bold text-[#161616] uppercase leading-tight mt-0.5">
+                        AUTHENTIC<br />HOMESTYLE
+                      </span>
+                    </div>
+                  </div>
 
-              {/* Floating Trust Card (Demanded in prompt: "EASY TO ORDER • Plans • Menu • Enquiry") */}
-              <div className="absolute -bottom-5 sm:-bottom-6 left-4 sm:left-6 z-10 bg-white/95 backdrop-blur-md px-5 py-3.5 rounded-2xl shadow-xl border border-[#E8E1D5] flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-full bg-[#163B2B] text-white flex items-center justify-center shrink-0">
-                  <UtensilsCrossedIcon className="w-5 h-5 text-[#E26D2D]" />
+                  {/* Top-Left Category Tag */}
+                  <div className="absolute top-3 left-3 z-20 pointer-events-none">
+                    <span className="px-2.5 py-1 rounded-md bg-[#161616]/90 backdrop-blur-xs text-white text-[9px] font-extrabold uppercase tracking-widest shadow-xs">
+                      SOUTH EXTENSION I • SERVICE HUB
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#0F251B]">
-                    EASY TO ORDER
-                  </h3>
-                  <p className="text-[11px] font-medium text-[#677066]">
-                    Plans • Menu • Enquiry
-                  </p>
-                </div>
-              </div>
 
-              {/* Location Badge */}
-              <div className="absolute top-6 -left-3 sm:-left-4 z-10 bg-[#0F251B] text-[#FAF7F2] text-[10px] sm:text-xs font-bold px-3 py-1.5 rounded-full shadow-lg border border-[#274D3B] flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#E26D2D] animate-pulse" />
-                <span>South Extension I, New Delhi</span>
+                {/* Bottom Floating Info Pill */}
+                <div className="mt-3 pt-2.5 border-t border-[#F0EBE1] flex items-center justify-between text-xs px-1">
+                  <span className="font-display font-bold text-[#161616] uppercase tracking-wide">
+                    South Extension I • New Delhi
+                  </span>
+                  <span className="font-bold text-[#BE2325]">
+                    {BUSINESS_INFO.priceIndicator}
+                  </span>
+                </div>
+
               </div>
 
             </div>
@@ -155,26 +183,5 @@ export default function Hero({ onOpenEnquiryModal }: HeroProps) {
         </div>
       </div>
     </section>
-  );
-}
-
-function UtensilsCrossedIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg 
-      viewBox="0 0 24 24" 
-      width="20" 
-      height="20" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      fill="none" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      {...props}
-    >
-      <path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8Z" />
-      <path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7" />
-      <path d="m2.1 21.8 6.4-6.3" />
-      <path d="m19 5-7 7" />
-    </svg>
   );
 }
